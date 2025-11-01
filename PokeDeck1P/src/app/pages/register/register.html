@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+<div class="form-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+    <h2>Crear Cuenta</h2>
+    
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+
+    <div class="form-group">
+      <label for="nombre">Nombre Completo</label>
+      <input 
+        id="nombre" 
+        type="text" 
+        formControlName="nombre"
+        [class.is-invalid]="nombre?.invalid && nombre?.touched">
+      
+      <div *ngIf="nombre?.invalid && nombre?.touched" class="invalid-feedback">
+        <span *ngIf="nombre?.errors?.['required']">Tu nombre es requerido.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input 
+        id="email" 
+        type="email" 
+        formControlName="email"
+        [class.is-invalid]="email?.invalid && email?.touched">
+      
+      <div *ngIf="email?.invalid && email?.touched" class="invalid-feedback">
+        <span *ngIf="email?.errors?.['required']">El email es requerido.</span>
+        <span *ngIf="email?.errors?.['email']">Introduce un email válido.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="contrasena">Contraseña</label>
+      <input 
+        id="contrasena" 
+        type="password" 
+        formControlName="contrasena"
+        [class.is-invalid]="contrasena?.invalid && contrasena?.touched">
+      
+      <div *ngIf="contrasena?.invalid && contrasena?.touched" class="invalid-feedback">
+        <span *ngIf="contrasena?.errors?.['required']">La contraseña es requerida.</span>
+        <span *ngIf="contrasena?.errors?.['minlength']">Debe tener al menos 6 caracteres.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="direccion">Dirección</label>
+      <input 
+        id="direccion" 
+        type="text" 
+        formControlName="direccion"
+        [class.is-invalid]="direccion?.invalid && direccion?.touched">
+      
+      <div *ngIf="direccion?.invalid && direccion?.touched" class="invalid-feedback">
+        <span *ngIf="direccion?.errors?.['required']">La dirección es requerida.</span>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn" [disabled]="registerForm.invalid">
+      Registrarse
+    </button>
+  </form>
+</div>

@@ -1,0 +1,80 @@
+<app-navbar></app-navbar>
+<div class="profile-container">
+  
+  <div *ngIf="user$ | async as user; else loading" class="profile-card">
+    
+    <h2>¡Hola de nuevo, {{ user.nombre }}!</h2>
+    <p class="status-message"></p>
+
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+    <div *ngIf="!isEditing" class="profile-details">
+      <h3>Tus Datos Personales</h3>
+      
+      <div class="detail-item">
+        <strong>Nombre:</strong>
+        <span>{{ user.nombre }}</span>
+      </div>
+      <div class="detail-item">
+        <strong>Email:</strong>
+        <span>{{ user.email }}</span>
+      </div>
+      <div class="detail-item">
+        <strong>Dirección de Envío:</strong>
+        <span>{{ user.direccion }}</span>
+      </div>
+
+      <div class="action-buttons">
+        <button class="edit-btn" (click)="enableEdit()">Editar Perfil</button>
+        <button class="delete-btn" (click)="onDelete()">Eliminar Cuenta</button>
+      </div>
+    </div>
+    
+    <div *ngIf="isEditing" class="edit-form-panel">
+        <h3>Editar Datos</h3>
+        <form [formGroup]="editForm" (ngSubmit)="onUpdate()">
+
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" type="text" formControlName="nombre" [class.is-invalid]="nombre?.invalid && nombre?.touched">
+                <div *ngIf="nombre?.invalid && nombre?.touched" class="invalid-feedback">
+                    <span *ngIf="nombre?.errors?.['required']">El nombre es requerido.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" type="email" formControlName="email" [class.is-invalid]="email?.invalid && email?.touched">
+                <div *ngIf="email?.invalid && email?.touched" class="invalid-feedback">
+                    <span *ngIf="email?.errors?.['required']">El email es requerido.</span>
+                    <span *ngIf="email?.errors?.['email']">Introduce un email válido.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input id="direccion" type="text" formControlName="direccion" [class.is-invalid]="direccion?.invalid && direccion?.touched">
+                <div *ngIf="direccion?.invalid && direccion?.touched" class="invalid-feedback">
+                    <span *ngIf="direccion?.errors?.['required']">La dirección es requerida.</span>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button type="submit" class="submit-btn" [disabled]="editForm.invalid">Guardar Cambios</button>
+                <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="order-history">
+      <h3>Historial de Pedidos</h3>
+      <p class="empty-history">Aún no tienes pedidos registrados.</p>
+    </div>
+
+  </div>
+
+  <ng-template #loading>
+    <p>Cargando perfil...</p>
+  </ng-template>
+
+</div>

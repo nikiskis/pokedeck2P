@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <product id="p1">
+    <name>Scarlet Violet — Prismatic Evolutions Elite Trainer Box</name>
+    <description>ETB de la expansión Prismatic Evolutions. Incluye 9 sobres, dados, fundas y accesorios de juego.</description>
+    <price>1159.00</price>
+    <image>assets/img/PrismaticEvolutionsETB.jpg</image>
+  </product>
+
+  <product id="p2">
+    <name>Scarlet Violet — Surging Sparks Elite Trainer Box</name>
+    <description>ETB de la expansión Surging Sparks. Incluye 9 sobres, dados, fundas y accesorios de juego.</description>
+    <price>1200.00</price>
+    <image>assets/img/SurgingSparksETB.jpg</image>
+  </product>
+
+
+  <product id="p3">
+    <name>Scarlet Violet — Black Bolt Elite Trainer Box</name>
+    <description>Caja Elite Trainer Box Black Bolt. Incluye 9 sobres, dados, fundas y accesorios de juego.</description>
+    <price>1220.00</price>
+    <image>assets/img/BlackBoltETB.jpg</image>
+  </product>
+
+  <product id="p4">
+    <name>Scarlet Violet — White Flare Elite Trainer Box</name>
+    <description>ETB de la expansión White Flare. Incluye 9 sobres, dados, fundas y accesorios de juego.</description>
+    <price>1200.00</price>
+    <image>assets/img/WhiteFlareETB.jpg</image>
+  </product>
+
+  <product id="p5">
+    <name>Scarlet Violet — Destined Rivals Elite Trainer Box</name>
+    <description>ETB de la expansión Destined Rivals. Incluye 9 sobres, dados, fundas y accesorios de juego.</description>
+    <price>1220.00</price>
+    <image>assets/img/DestinedRivalsETB.jpg</image>
+  </product>
+
+  <product id="p7">
+    <name>Charizard ex — Super-Premium Collection</name>
+    <description>Caja Super-Premium Charizar EX. Incluye figura de vinyl y carta promo de Charizard ex, fundas, accesorios y sobres de refuerzo para exhibición y juego.</description>
+    <price>1931.99</price>
+    <image>assets/img/CharizardEXSuperPremium.jpg</image>
+  </product>
+
+  <product id="p8">
+    <name>Scarlet Violet — Prismatic Evolutions Super-Premium Collection</name>
+    <description>Edición Super-Premium de Prismatic Evolutions. Incluye promos exclusivas, fundas y múltiples sobres de refuerzo.</description>
+    <price>3999.00</price>
+    <image>assets/img/PrismaticEvolutionsSPC.jpg</image>
+  </product>
+
+  <product id="p9">
+    <name>Pokémon TCG — Crown Zenith Elite Trainer Box</name>
+    <description>ETB de Crown Zenith. Incluye 9 sobres, dados, fundas y accesorios de juego.</description>
+    <price>4899.49</price>
+    <image>assets/img/CrownZenithETB.jpg</image>
+  </product>
+
+  <product id="p10">
+    <name>Pokémon TCG — Mega Evolutions 2: Phantasmal Flames Elite Trainer Box</name>
+    <description>ETB Phantasmal Flames. Incluye 9 sobres, dados, fundas y accesorios de juego.</description>
+    <price>1849.00</price>
+    <image>assets/img/PhantasmalFlamesETB.jpg</image>
+  </product>
+
+  <product id="p11">
+    <name>Scarlet Violet — Twilight Masquerade Elite Trainer Box</name>
+    <description>ETB de Twilight Masquerade. Incluye 9 sobres, dados, fundas y accesorios de juego.</description>
+    <price>1648.87</price>
+    <image>assets/img/TwilightMasqueradeETB.jpg</image>
+  </product>
+</catalog>
+
+  

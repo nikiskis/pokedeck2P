@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+
+<div class="page-container">
+  <h2>Tu Carrito de Compras</h2>
+
+  <div *ngIf="!items.length" class="empty-cart">
+    Tu carrito está vacío.
+  </div>
+
+  <div class="cart-layout" *ngIf="items.length">
+    <div class="item-list">
+      <div class="cart-item" *ngFor="let i of items">
+        <img class="product-image" [src]="i.product.imagen" [alt]="i.product.nombre">
+        
+        <div class="product-info">
+          <div class="name">{{ i.product.nombre }}</div>
+          <div class="desc">{{ i.product.descripcion }}</div>
+        </div>
+        
+        <div class="product-quantity">
+          <input type="number" min="1" [value]="i.quantity" (input)="updateQty(i.product.id, $any($event.target).value)" aria-label="Cantidad">
+        </div>
+        
+        <div class="product-price">
+          ${{ (i.product.precio * i.quantity) | number:'1.2-2' }}
+        </div>
+        
+        <div class="product-remove">
+          <button class="remove-btn" (click)="remove(i.product.id)" title="Quitar producto">
+            &times;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-summary">
+      <h4>Resumen del Pedido</h4>
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span>${{ total() | number:'1.2-2' }}</span>
+      </div>
+      <div class="summary-row">
+        <span>Envío</span>
+        <span>Gratis</span>
+      </div>
+      <div class="summary-total">
+        <span>Total</span>
+        <span class="total-amount">${{ total() | number:'1.2-2' }}</span>
+      </div>
+      <a routerLink="/checkout" class="checkout-button">Ir a Pagar</a>
+    </div>
+  </div>
+</div>

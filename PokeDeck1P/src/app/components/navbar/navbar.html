@@ -1,0 +1,19 @@
+<nav class="nav">
+  <a routerLink="/" class="brand">Pokedeck</a>
+  <div class="links">
+    
+    <a routerLink="/cart">Carrito</a>
+    <a routerLink="/checkout">Checkout</a>
+
+    <ng-container *ngIf="!currentUser">
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Registro</a>
+    </ng-container>
+
+    <ng-container *ngIf="currentUser">
+      <a routerLink="/profile">Perfil ({{ currentUser.nombre }})</a>
+      <a href="#" (click)="logout()">Cerrar Sesión</a>
+    </ng-container>
+    
+  </div>
+</nav>
