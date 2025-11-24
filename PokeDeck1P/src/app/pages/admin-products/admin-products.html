@@ -1,0 +1,106 @@
+<app-navbar></app-navbar>
+
+<div class="admin-container">
+  
+  <div class="header-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #4a90e2; padding-bottom: 10px;">
+      <h2 style="margin: 0; border: none;">Gestión de Inventario</h2>
+      <button class="add-btn" (click)="openCreateModal()">+ Nuevo Producto</button>
+  </div>
+  
+  <div *ngIf="successMsg" class="alert-success">
+    {{ successMsg }}
+  </div>
+
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Stock (Rápido)</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of products" [style.opacity]="p.activo === 0 ? '0.6' : '1'">
+          <td><img [src]="p.imagen" alt="img" class="thumb"></td>
+          <td>
+              <strong>{{ p.nombre }}</strong><br>
+              <span style="font-size: 0.8em; color: #718096;">{{ p.descripcion | slice:0:30 }}...</span>
+          </td>
+          <td>${{ p.precio }}</td>
+          <td>
+            <input type="number" [(ngModel)]="p.stock" min="0" class="stock-input" [disabled]="p.activo === 0">
+            <button class="mini-btn" (click)="saveStock(p)" title="Guardar solo Stock" [disabled]="p.activo === 0">💾</button>
+          </td>
+          <td>
+              <span *ngIf="p.activo === 1" style="color: #2f855a; font-weight: bold; background: #f0fff4; padding: 2px 6px; border-radius: 4px;">Activo</span>
+              <span *ngIf="p.activo === 0" style="color: #c53030; font-weight: bold; background: #fff5f5; padding: 2px 6px; border-radius: 4px;">Eliminado</span>
+          </td>
+          <td>
+            <button class="edit-full-btn" (click)="openEditModal(p)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isModalOpen">
+    <div class="modal-content">
+        <h3>{{ isEditing ? 'Editar Producto' : 'Nuevo Producto' }}</h3>
+        
+        <form [formGroup]="editForm" (ngSubmit)="submitForm()">
+            <div class="form-row">
+                <div class="preview-container" *ngIf="currentImagePreview">
+                    <img [src]="currentImagePreview" class="preview-img">
+                </div>
+                <div class="file-input-container">
+                    <label>Imagen del Producto</label>
+                    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" formControlName="nombre">
+            </div>
+
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea formControlName="descripcion" rows="3"></textarea>
+            </div>
+
+            <div class="form-row-inputs">
+                <div class="form-group">
+                    <label>Precio</label>
+                    <input type="number" formControlName="precio">
+                </div>
+                <div class="form-group">
+                    <label>Stock</label>
+                    <input type="number" formControlName="stock">
+                </div>
+            </div>
+
+            <div class="modal-actions" style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <button *ngIf="isEditing && currentProductActive === 1" type="button" class="delete-btn-modal" (click)="deleteProduct()">
+                        Eliminar Producto
+                    </button>
+                    <button *ngIf="isEditing && currentProductActive === 0" type="button" class="restore-btn-modal" (click)="restoreProduct()">
+                        Habilitar Nuevamente
+                    </button>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" class="save-btn" [disabled]="editForm.invalid">
+                        {{ isEditing ? 'Guardar Cambios' : 'Crear Producto' }}
+                    </button>
+                    <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

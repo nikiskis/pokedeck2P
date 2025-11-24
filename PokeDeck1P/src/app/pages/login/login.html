@@ -1,22 +1,21 @@
 <app-navbar></app-navbar>
 
-
 <div class="form-container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+  
+  <form *ngIf="viewState === 'login'" [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
     <h2>Iniciar Sesión</h2>
     
+    <div *ngIf="successMessage" class="alert alert-success" style="background-color: #f0fff4; color: #2f855a; border: 1px solid #48bb78; padding:15px; border-radius:6px; margin-bottom:20px; text-align:center;">
+        {{ successMessage }}
+    </div>
+
     <div *ngIf="error" class="alert alert-danger">
       {{ error }}
     </div>
 
     <div class="form-group">
       <label for="email">Email</label>
-      <input 
-        id="email" 
-        type="email" 
-        formControlName="email"
-        [class.is-invalid]="email?.invalid && email?.touched">
-      
+      <input id="email" type="email" formControlName="email" [class.is-invalid]="email?.invalid && email?.touched">
       <div *ngIf="email?.invalid && email?.touched" class="invalid-feedback">
         <span *ngIf="email?.errors?.['required']">El email es requerido.</span>
         <span *ngIf="email?.errors?.['email']">Introduce un email válido.</span>
@@ -25,20 +24,63 @@
 
     <div class="form-group">
       <label for="contrasena">Contraseña</label>
-      <input 
-        id="contrasena" 
-        type="password" 
-        formControlName="contrasena"
-        [class.is-invalid]="contrasena?.invalid && contrasena?.touched">
-      
+      <input id="contrasena" type="password" formControlName="contrasena" [class.is-invalid]="contrasena?.invalid && contrasena?.touched">
       <div *ngIf="contrasena?.invalid && contrasena?.touched" class="invalid-feedback">
         <span *ngIf="contrasena?.errors?.['required']">La contraseña es requerida.</span>
-        <span *ngIf="contrasena?.errors?.['minlength']">Debe tener al menos 6 caracteres.</span>
       </div>
     </div>
 
-    <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">
-      Entrar
-    </button>
+    <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">Entrar</button>
+    
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="javascript:void(0)" (click)="toggleRecovery()" style="color: #e3350d; text-decoration: none; font-weight: 600;">¿Olvidaste tu contraseña?</a>
+    </div>
   </form>
+
+
+  <form *ngIf="viewState === 'email-input'" [formGroup]="recoveryForm" (ngSubmit)="checkEmail()" class="auth-form">
+      <h2>Recuperar Cuenta</h2>
+      <p style="text-align: center; color: #718096; margin-bottom: 20px;">Ingresa tu email para buscar tus preguntas de seguridad.</p>
+
+      <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+      <div class="form-group">
+        <label for="rec_email">Email</label>
+        <input id="rec_email" type="email" formControlName="email" [class.is-invalid]="rec_email?.invalid && rec_email?.touched">
+      </div>
+
+      <button type="submit" class="submit-btn">Siguiente</button>
+      <button type="button" class="submit-btn" style="background-color: #cbd5e0; margin-top: 10px; color: #2d3748;" (click)="cancelRecovery()">Cancelar</button>
+  </form>
+
+
+  <form *ngIf="viewState === 'questions-input'" [formGroup]="recoveryForm" (ngSubmit)="resetPassword()" class="auth-form">
+      <h2>Preguntas de Seguridad</h2>
+      
+      <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+      <div class="form-group" style="margin-bottom: 20px;">
+          <label style="color: #4a5568;">{{ getQuestionText(userQuestions?.pregunta1) }}</label>
+          <input type="text" formControlName="respuesta1" placeholder="Tu respuesta" [class.is-invalid]="rec_res1?.invalid && rec_res1?.touched">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 20px;">
+          <label style="color: #4a5568;">{{ getQuestionText(userQuestions?.pregunta2) }}</label>
+          <input type="text" formControlName="respuesta2" placeholder="Tu respuesta" [class.is-invalid]="rec_res2?.invalid && rec_res2?.touched">
+      </div>
+
+      <hr style="margin: 20px 0; border: 0; border-top: 1px dashed #e2e8f0;">
+
+      <div class="form-group">
+          <label for="new_pass">Nueva Contraseña</label>
+          <input id="new_pass" type="password" formControlName="nuevaContrasena" [class.is-invalid]="rec_pass?.invalid && rec_pass?.touched">
+          <div *ngIf="rec_pass?.invalid && rec_pass?.touched" class="invalid-feedback">
+            <span>Mínimo 6 caracteres.</span>
+          </div>
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="recoveryForm.invalid">Restablecer Contraseña</button>
+      <button type="button" class="submit-btn" style="background-color: #cbd5e0; margin-top: 10px; color: #2d3748;" (click)="cancelRecovery()">Cancelar</button>
+  </form>
+
 </div>

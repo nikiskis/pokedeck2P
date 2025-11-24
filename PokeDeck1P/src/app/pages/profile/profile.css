@@ -1,17 +1,6 @@
-:root {
-    --color-primary: #4a90e2;
-    --color-secondary: #ffcc00;
-    --color-text: #2d3748;
-    --color-light-text: #718096;
-    --color-background: #f4f7f6;
-    --color-card-bg: #ffffff;
-    --color-success: #48bb78;
-    --color-error: #e53e3e;
-    --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
 
 body {
-    background-color: var(--color-background);
+    background-color: #f4f7f6;
     font-family: 'Inter', sans-serif;
     margin: 0;
 }
@@ -22,13 +11,12 @@ body {
     padding: 0 20px;
 }
 
-/* --- Card Principal y Estructura --- */
 
 .profile-card {
-    background-color: var(--color-card-bg);
+    background-color: #ffffff;
     padding: 40px;
     border-radius: 16px;
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
 }
 
@@ -39,20 +27,18 @@ body {
 h2 {
     font-size: 2.2em;
     font-weight: 800;
-    color: var(--color-primary);
+    color: #4a90e2; 
     margin-top: 0;
     margin-bottom: 5px;
 }
 
 .status-message {
     font-size: 1.1em;
-    color: var(--color-light-text);
+    color: #718096;
     margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid #e2e8f0;
 }
-
-/* --- Alerta de Error --- */
 
 .alert {
     padding: 15px;
@@ -64,21 +50,19 @@ h2 {
 
 .alert-danger {
     background-color: #fee2e2;
-    border: 1px solid var(--color-error);
-    color: var(--color-error);
+    border: 1px solid #e53e3e;
+    color: #e53e3e;
 }
-
-/* --- Vista de Detalles del Perfil --- */
 
 .profile-details h3,
 .edit-form-panel h3,
 .order-history h3 {
     font-size: 1.5em;
     font-weight: 700;
-    color: var(--color-text);
+    color: #2d3748;
     margin-top: 0;
     margin-bottom: 25px;
-    border-left: 5px solid var(--color-secondary);
+    border-left: 5px solid #ffcc00;
     padding-left: 10px;
 }
 
@@ -91,16 +75,15 @@ h2 {
 }
 
 .detail-item strong {
-    color: var(--color-text);
+    color: #2d3748;
     font-weight: 600;
 }
 
 .detail-item span {
-    color: var(--color-light-text);
+    color: #718096;
     text-align: right;
 }
 
-/* --- Botones de Acción de Vista --- */
 
 .action-buttons {
     display: flex;
@@ -112,39 +95,41 @@ h2 {
 
 .edit-btn {
     padding: 12px 25px;
-    background-color: var(--color-primary);
-    color: white;
-    border: none;
+    background-color: #4a90e2 !important; 
+    color: white !important;
+    border: 1px solid #357abd;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s;
+    font-size: 1rem;
 }
 
 .edit-btn:hover {
-    background-color: #3b7ad1;
+    background-color: #3b7ad1 !important;
     transform: translateY(-1px);
 }
 
 .delete-btn {
     padding: 12px 25px;
-    background-color: var(--color-error);
-    color: white;
-    border: none;
+    background-color: #e53e3e !important; 
+    color: white !important;
+    border: 1px solid #c53030;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    font-size: 1rem;
 }
 
 .delete-btn:hover {
-    background-color: #c53030;
+    background-color: #c53030 !important;
 }
 
 .cancel-btn {
     padding: 12px 25px;
     background-color: #cbd5e0;
-    color: var(--color-text);
+    color: #2d3748;
     border: none;
     border-radius: 8px;
     font-weight: 600;
@@ -156,7 +141,21 @@ h2 {
     background-color: #a0aec0;
 }
 
-/* --- Panel de Edición (Formulario) --- */
+.submit-btn {
+    padding: 12px 25px;
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-right: 15px;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background-color: #38a169;
+}
 
 .edit-form-panel {
     margin-top: 20px;
@@ -170,7 +169,7 @@ h2 {
     display: block;
     margin-bottom: 5px;
     font-weight: 600;
-    color: var(--color-text);
+    color: #2d3748;
     font-size: 0.95em;
 }
 
@@ -180,56 +179,16 @@ h2 {
     border: 1px solid #e2e8f0;
     border-radius: 6px;
     font-size: 1em;
-    color: var(--color-text);
+    color: #2d3748;
     box-sizing: border-box;
-    transition: border-color 0.3s ease;
 }
 
 .edit-form-panel input:focus {
-    border-color: var(--color-primary);
+    border-color: #4a90e2;
     outline: none;
-    box-shadow: 0 0 0 1px var(--color-primary);
+    box-shadow: 0 0 0 1px #4a90e2;
 }
 
-.edit-form-panel input.is-invalid {
-    border-color: var(--color-error);
-}
-
-.edit-form-panel .invalid-feedback {
-    color: var(--color-error);
-    font-size: 0.85em;
-    margin-top: 5px;
-}
-
-.edit-form-panel .submit-btn {
-    padding: 12px 25px;
-    background-color: var(--color-success);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    margin-right: 15px;
-}
-
-.edit-form-panel .submit-btn:hover:not(:disabled) {
-    background-color: #38a169;
-}
-
-.edit-form-panel .submit-btn:disabled {
-    background-color: #a0aec0;
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-.edit-form-panel .action-buttons {
-    justify-content: flex-start;
-    border-top: none;
-    padding-top: 10px;
-}
-
-/* --- Historial de Pedidos --- */
 
 .order-history {
     margin-top: 40px;
@@ -243,5 +202,96 @@ h2 {
     background-color: #f7fafc;
     border: 1px dashed #cbd5e0;
     border-radius: 6px;
-    color: var(--color-light-text);
+    color: #718096;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    overflow: hidden;
+}
+
+.order-header {
+    background-color: #edf2f7;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.order-status {
+    font-size: 0.85em;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background-color: #cbd5e0;
+    color: #4a5568;
+}
+
+.order-status.completed {
+    background-color: #c6f6d5;
+    color: #276749;
+}
+
+.order-items {
+    padding: 15px;
+    background-color: white;
+}
+
+.order-item-detail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #edf2f7;
+}
+
+.order-item-detail:last-child {
+    border-bottom: none;
+}
+
+.mini-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+    border: 1px solid #e2e8f0;
+}
+
+.item-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.item-qty {
+    font-size: 0.85em;
+    color: #718096;
+}
+
+@media (max-width: 600px) {
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .order-total {
+        align-self: flex-end;
+    }
 }

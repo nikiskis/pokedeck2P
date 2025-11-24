@@ -72,7 +72,6 @@ h2 {
   margin: 0 0 16px 0;
   line-height: 1.5;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;  
   overflow: hidden;
 }
@@ -136,4 +135,38 @@ h2 {
   padding: 16px;
   border-radius: 8px;
   text-align: center;
+}
+
+
+.stock-display {
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.stock-normal {
+    color: #718096; 
+    background-color: #f7fafc;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+}
+
+.stock-low {
+    color: #c05621;
+    background-color: #fefcbf; 
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #f6e05e;
+}
+
+.stock-out {
+    color: #e53e3e; 
+    font-weight: bold;
+}
+
+.add-to-cart-btn.disabled {
+    background-color: #cbd5e0;
+    cursor: not-allowed;
+    pointer-events: none;
 }

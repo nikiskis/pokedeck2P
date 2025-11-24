@@ -5,13 +5,13 @@ import { User } from '../../models/user';
 import { Observable, Subscription } from 'rxjs';
 import { Order } from '../../models/order'; 
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms'; 
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router'; 
 import { NavbarComponent } from '../../components/navbar/navbar';
 
 @Component({
  selector: 'app-profile',
  standalone: true,
- imports: [CommonModule, ReactiveFormsModule, NavbarComponent], 
+ imports: [CommonModule, ReactiveFormsModule, NavbarComponent, RouterLink], 
  templateUrl: './profile.html', 
  styleUrls: ['./profile.css']
 })
@@ -26,6 +26,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     
     orderHistory: Order[] = []; 
 
+    preguntasSeguridad = [
+        { id: 1, texto: '¿Cuál fue el primer Pokémon que elegiste en algún juego de Pokémon?' },
+        { id: 2, texto: '¿Qué región del mundo Pokémon es tu favorita (Kanto, Johto, Hoenn, etc.)?' },
+        { id: 3, texto: '¿Quién es tu entrenador o personaje favorito del anime Pokémon?' },
+        { id: 4, texto: '¿Qué Pokémon te acompañaría si vivieras en el mundo Pokémon?' },
+        { id: 5, texto: '¿Cuál fue el primer juego de Pokémon que jugaste?' }
+    ];
+
     constructor(
         private authService: AuthService, 
         private fb: FormBuilder,
@@ -36,7 +44,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.userSubscription = this.user$.subscribe(user => {
             this.currentUser = user;
             if (user) {
-                this.initForm(user);
                 this.loadOrderHistory(user.id); 
             } else {
                 this.orderHistory = [];
@@ -44,8 +51,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     ngOnDestroy() {
         if (this.userSubscription) {
@@ -55,12 +61,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     loadOrderHistory(userId: number): void {
         this.authService.getOrderHistory(userId).subscribe({
-            next: (orders) => {
-                this.orderHistory = orders;
-            },
-            error: (err) => {
-                console.error("Fallo al cargar historial:", err);
-            }
+            next: (orders) => { this.orderHistory = orders; },
+            error: (err) => { console.error("Fallo al cargar historial:", err); }
         });
     }
 
@@ -68,7 +70,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.editForm = this.fb.group({
             nombre: [user.nombre, [Validators.required]],
             email: [user.email, [Validators.required, Validators.email]],
-            direccion: [user.direccion, [Validators.required]]
+            direccion: [user.direccion, [Validators.required]],
+            pregunta1: [user.pregunta1 || '', [Validators.required]],
+            respuesta1: [''], 
+            pregunta2: [user.pregunta2 || '', [Validators.required]],
+            respuesta2: ['']
         });
     }
 
@@ -85,17 +91,35 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
 
     onUpdate(): void {
-        if (this.editForm.invalid || !this.currentUser) return;
+        if (this.editForm.invalid || !this.currentUser) {
+            this.editForm.markAllAsTouched();
+            return;
+        }
+
+        const { pregunta1, pregunta2, respuesta1, respuesta2 } = this.editForm.value;
+
+        if (pregunta1 != this.currentUser.pregunta1 && (!respuesta1 || respuesta1.trim() === '')) {
+            this.error = "Si cambias la Pregunta 1, debes escribir una nueva respuesta.";
+            return;
+        }
+        if (pregunta2 != this.currentUser.pregunta2 && (!respuesta2 || respuesta2.trim() === '')) {
+            this.error = "Si cambias la Pregunta 2, debes escribir una nueva respuesta.";
+            return;
+        }
+
+        if (pregunta1 == pregunta2) {
+            this.error = "Selecciona dos preguntas diferentes.";
+            return;
+        }
 
         this.error = '';
-        const updatedData: User = {
+        const updatedData = {
             ...this.currentUser, 
             ...this.editForm.value 
         };
 
         this.authService.updateUser(updatedData).subscribe({
             next: (user) => {
-                console.log('Usuario actualizado:', user);
                 this.isEditing = false; 
             },
             error: (err) => {
@@ -109,12 +133,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
             if (!this.currentUser) return;
 
             this.authService.deleteUser(this.currentUser.id).subscribe({
-                next: () => {
-                    this.router.navigate(['/register']); 
-                },
-                error: (err) => {
-                    this.error = err.message || 'Error al eliminar la cuenta.';
-                }
+                next: () => { this.router.navigate(['/register']); },
+                error: (err) => { this.error = err.message || 'Error al eliminar la cuenta.'; }
             });
         }
     }
@@ -122,4 +142,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     get nombre() { return this.editForm.get('nombre'); }
     get email() { return this.editForm.get('email'); }
     get direccion() { return this.editForm.get('direccion'); }
+    get f_pregunta1() { return this.editForm.get('pregunta1'); }
+    get f_respuesta1() { return this.editForm.get('respuesta1'); }
+    get f_pregunta2() { return this.editForm.get('pregunta2'); }
+    get f_respuesta2() { return this.editForm.get('respuesta2'); }
 }

@@ -1,30 +1,23 @@
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f9; /* Fondo claro para contraste */
-}
-
 .nav {
-    background-color: #e3350d; 
-    
+    background-color: #e3350d;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     
     display: flex;
     justify-content: space-between; 
     align-items: center;
     
-    padding: 10px 40px; 
+    padding: 15px 40px; 
     
     width: 100%;
+    box-sizing: border-box; 
     
     position: sticky;
     top: 0;
+    left: 0;
     z-index: 1000; 
 }
 
-
 .brand {
-    
     color: #ffffff;
     font-size: 2em; 
     font-weight: 700; 
@@ -64,18 +57,6 @@ body {
     color: #e3350d; 
     font-weight: 700;
 }
-
-.links a[href="#"] {
-    background-color: #ffcc00; 
-    color: #e3350d;
-    font-weight: 700;
-}
-
-.links a[href="#"]:hover {
-    background-color: #f7b801; 
-    color: #ffffff;
-}
-
 
 @media (max-width: 768px) {
     .nav {
